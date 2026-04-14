@@ -1,0 +1,90 @@
+/* Global reset & Streamlit-inspired dark theme */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --bg-main: #0e1117;
+  --bg-sidebar: #262730;
+  --bg-bubble-user: #3d3f4e;
+  --bg-bubble-assistant: #1e1f2e;
+  --bg-input: #1e1f2e;
+  --bg-dropzone: #1a1b26;
+  --bg-tab-bar: #161821;
+  --accent: #ff4b4b;
+  --accent-hover: #e03c3c;
+  --text-primary: #fafafa;
+  --text-secondary: #a3a8b4;
+  --text-muted: #6b7280;
+  --border: #3d3f4e;
+  --success-bg: #1a3a2a;
+  --success-text: #4ade80;
+  --error-bg: #3a1a1a;
+  --error-text: #f87171;
+  --info-bg: #1a2a3a;
+  --info-text: #60a5fa;
+  --warning-bg: #2a2a1a;
+  --warning-text: #fbbf24;
+  --radius: 8px;
+  --radius-sm: 4px;
+}
+
+html, body {
+  height: 100%;
+  background: var(--bg-main);
+  color: var(--text-primary);
+  font-family: "Source Sans Pro", "Helvetica Neue", Arial, sans-serif;
+  font-size: 15px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--text-muted); }
+
+/* Markdown content styles */
+.message-bubble p { margin-bottom: 0.6em; }
+.message-bubble p:last-child { margin-bottom: 0; }
+.message-bubble ul, .message-bubble ol { padding-left: 1.4em; margin-bottom: 0.6em; }
+.message-bubble li { margin-bottom: 0.2em; }
+.message-bubble h1, .message-bubble h2, .message-bubble h3 {
+  font-weight: 600; margin: 0.8em 0 0.4em;
+}
+.message-bubble code {
+  background: rgba(255,255,255,0.08);
+  border-radius: 3px;
+  padding: 0.1em 0.4em;
+  font-family: "SFMono-Regular", Consolas, monospace;
+  font-size: 0.88em;
+}
+.message-bubble pre {
+  background: rgba(0,0,0,0.3);
+  border-radius: var(--radius-sm);
+  padding: 0.8em 1em;
+  overflow-x: auto;
+  margin-bottom: 0.6em;
+}
+.message-bubble pre code { background: none; padding: 0; }
+.message-bubble blockquote {
+  border-left: 3px solid var(--accent);
+  padding-left: 1em;
+  color: var(--text-secondary);
+  margin: 0.4em 0;
+}
+.message-bubble table {
+  border-collapse: collapse;
+  width: 100%;
+  margin-bottom: 0.6em;
+}
+.message-bubble th, .message-bubble td {
+  border: 1px solid var(--border);
+  padding: 0.4em 0.8em;
+}
+.message-bubble th { background: rgba(255,255,255,0.05); }
+
+.error-text { color: var(--error-text); }

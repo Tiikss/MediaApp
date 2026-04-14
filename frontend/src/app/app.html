@@ -1,0 +1,125 @@
+<div class="app-container">
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <div class="sidebar-header">
+        <span class="sidebar-title">Dodavanje fajlova</span>
+      </div>
+
+      <div
+        class="dropzone"
+        (dragover)="onDragOver($event)"
+        (drop)="onDrop($event)"
+        (click)="fileInput.click()"
+      >
+        <div class="dropzone-icon">📁</div>
+        <div class="dropzone-text">Prevucite fajlove ovdje</div>
+        <div class="dropzone-hint">Dozvoljeni tipovi fajlova &bull; PDF, DOCX, TXT</div>
+        <button class="btn-secondary dropzone-btn" type="button" (click)="$event.stopPropagation(); fileInput.click()">
+          Dodaj fajlove
+        </button>
+      </div>
+      <input
+        #fileInput
+        type="file"
+        multiple
+        accept=".pdf,.docx,.txt"
+        hidden
+        (change)="onFilesSelected($event)"
+      />
+
+      @if (selectedFiles().length > 0) {
+        <div class="file-list-section">
+          <div class="info-box">
+            Broj odabranih fajlova: {{ selectedFiles().length }}
+          </div>
+          <details class="file-details">
+            <summary>📋 Odabrano:</summary>
+            <ul class="file-list">
+              @for (file of selectedFiles(); track file.name) {
+                <li>— {{ file.name }}</li>
+              }
+            </ul>
+          </details>
+          <button
+            class="btn-primary process-btn"
+            [disabled]="isUploadingFiles()"
+            (click)="processFiles()"
+          >
+            @if (isUploadingFiles()) {
+              <span class="spinner"></span> Obrađuje se...
+            } @else {
+              Obradi fajlove
+            }
+          </button>
+        </div>
+      }
+
+      <hr class="divider" />
+
+      <div class="status-section">
+        <div class="status-title">📊 Status</div>
+        <div class="status-badge" [ngClass]="processingStatus()">
+          {{ statusLabel }}
+        </div>
+      </div>
+
+    </div>
+  </aside>
+
+  <main class="main-content">
+
+    <div class="tab-bar">
+      <div class="tab active">🔍 Pretraga</div>
+    </div>
+
+    <div class="messages-container" #messagesContainer>
+      @if (messages().length === 0) {
+        <div class="empty-state">
+          <div class="empty-icon">📰</div>
+          <div class="empty-title">Vijesti — Arhiva</div>
+          <div class="empty-subtitle">Pretražite arhivu Vijesti.</div>
+        </div>
+      }
+
+      @for (msg of messages(); track $index) {
+        <div class="message-row" [ngClass]="msg.role">
+          <div class="message-avatar">
+            @if (msg.role === 'user') { 👤 } @else { 🤖 }
+          </div>
+          <div class="message-bubble" [ngClass]="msg.role">
+            @if (msg.status) {
+              <span class="status-indicator">
+                <span class="typing-dots"><span></span><span></span><span></span></span>
+              </span>
+            } @else {
+              <div [innerHTML]="msg.content"></div>
+            }
+          </div>
+        </div>
+      }
+    </div>
+
+    <div class="chat-input-bar">
+      <textarea
+        class="chat-textarea"
+        placeholder="Napiši pitanje..."
+        rows="1"
+        [disabled]="isSendingChat()"
+        [ngModel]="userInput()"
+        (ngModelChange)="userInput.set($event)"
+        (keydown)="onKeyDown($event)"
+      ></textarea>
+      <button
+        class="btn-send"
+        [disabled]="isSendingChat() || !userInput().trim()"
+        (click)="sendMessage()"
+        title="Pošalji (Enter)"
+      >
+        ➤
+      </button>
+    </div>
+
+  </main>
+</div>
