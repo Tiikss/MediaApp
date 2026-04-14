@@ -2,7 +2,7 @@
 
 pip install -r requirements.txt
 
-Kreirati .env fajl u root direktoriju:  
+Kreirati .env fajl u root direktorijumu:  
 ANTHROPIC_API_KEY=...  OPENAI_API_KEY=...  CHROMA_API_KEY=...
 
 cd backend  
